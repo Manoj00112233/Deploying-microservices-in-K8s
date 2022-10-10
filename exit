@@ -1,0 +1,204 @@
+[33mcommit a61e28e544fdebaba06e20928aa2139053fd741e[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Manoj <Manoj@gmail.com>
+Date:   Mon Oct 10 16:46:54 2022 +0530
+
+    first commit
+
+[1mdiff --git a/README.md b/README.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a0f5ae0[m
+[1m--- /dev/null[m
+[1m+++ b/README.md[m
+[36m@@ -0,0 +1,192 @@[m
+[32m+[m[32m<p align="center">[m
+[32m+[m[32m<img src="src/frontend/static/icons/Hipster_HeroLogoCyan.svg" width="300" alt="Online Boutique" />[m
+[32m+[m[32m</p>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m![Continuous Integration](https://github.com/GoogleCloudPlatform/microservices-demo/workflows/Continuous%20Integration%20-%20Master/Release/badge.svg)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m**Online Boutique** is a cloud-native microservices demo application.[m
+[32m+[m[32mOnline Boutique consists of a 10-tier microservices application. The application is a[m
+[32m+[m[32mweb-based e-commerce app where users can browse items,[m
+[32m+[m[32madd them to the cart, and purchase them.[m
+[32m+[m
+[32m+[m[32m**Google uses this application to demonstrate use of technologies like[m
+[32m+[m[32mKubernetes/GKE, Istio, Stackdriver, gRPC and OpenCensus**. This application[m
+[32m+[m[32mworks on any Kubernetes cluster, as well as Google[m
+[32m+[m[32mKubernetes Engine. It’s **easy to deploy with little to no configuration**.[m
+[32m+[m
+[32m+[m[32mIf you’re using this demo, please **★Star** this repository to show your interest![m
+[32m+[m
+[32m+[m[32m> 👓**Note to Googlers:** Please fill out the form at[m
+[32m+[m[32m> [go/microservices-demo](http://go/microservices-demo) if you are using this[m
+[32m+[m[32m> application.[m
+[32m+[m
+[32m+[m[32mLooking for the old Hipster Shop frontend interface? Use the [manifests](https://github.com/GoogleCloudPlatform/microservices-demo/tree/v0.1.5/kubernetes-manifests) in release [v0.1.5](https://github.com/GoogleCloudPlatform/microservices-demo/releases/v0.1.5).[m
+[32m+[m
+[32m+[m[32m## Screenshots[m
+[32m+[m
+[32m+[m[32m| Home Page                                                                                                         | Checkout Screen                                                                                                    |[m
+[32m+[m[32m| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |[m
+[32m+[m[32m| [![Screenshot of store homepage](./docs/img/online-boutique-frontend-1.png)](./docs/img/online-boutique-frontend-1.png) | [![Screenshot of checkout screen](./docs/img/online-boutique-frontend-2.png)](./docs/img/online-boutique-frontend-2.png) |[m
+[32m+[m
+[32m+[m
+[32m+[m[32m## Quickstart (GKE)[m
+[32m+[m
+[32m+[m[32m[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/GoogleCloudPlatform/microservices-demo&cloudshell_tutorial=README.md)[m
+[32m+[m
+[32m+[m[32m1. **[Create a Google Cloud Platform project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project)** or use an existing project. Set the `PROJECT_ID` environment variable and ensure the Google Kubernetes Engine and Cloud Operations APIs are enabled.[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mPROJECT_ID="<your-project-id>"[m
+[32m+[m[32mgcloud services enable container.googleapis.com --project ${PROJECT_ID}[m
+[32m+[m[32mgcloud services enable monitoring.googleapis.com \[m
+[32m+[m[32m    cloudtrace.googleapis.com \[m
+[32m+[m[32m    clouddebugger.googleapis.com \[m
+[32m+[m[32m    cloudprofiler.googleapis.com \[m
+[32m+[m[32m    --project ${PROJECT_ID}[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m2. **Clone this repository.**[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mgit clone https://github.com/GoogleCloudPlatform/microservices-demo.git[m
+[32m+[m[32mcd microservices-demo[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m3. **Create a GKE cluster.**[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mZONE=us-central1-b[m
+[32m+[m[32mgcloud container clusters create onlineboutique \[m
+[32m+[m[32m    --project=${PROJECT_ID} --zone=${ZONE} \[m
+[32m+[m[32m    --machine-type=e2-standard-2 --num-nodes=4[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m4. **Deploy the sample app to the cluster.**[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mkubectl apply -f ./release/kubernetes-manifests.yaml[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m5. **Wait for the Pods to be ready.**[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mkubectl get pods[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mAfter a few minutes, you should see:[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mNAME                                     READY   STATUS    RESTARTS   AGE[m
+[32m+[m[32madservice-76bdd69666-ckc5j               1/1     Running   0          2m58s[m
+[32m+[m[32mcartservice-66d497c6b7-dp5jr             1/1     Running   0          2m59s[m
+[32m+[m[32mcheckoutservice-666c784bd6-4jd22         1/1     Running   0          3m1s[m
+[32m+[m[32mcurrencyservice-5d5d496984-4jmd7         1/1     Running   0          2m59s[m
+[32m+[m[32memailservice-667457d9d6-75jcq            1/1     Running   0          3m2s[m
+[32m+[m[32mfrontend-6b8d69b9fb-wjqdg                1/1     Running   0          3m1s[m
+[32m+[m[32mloadgenerator-665b5cd444-gwqdq           1/1     Running   0          3m[m
+[32m+[m[32mpaymentservice-68596d6dd6-bf6bv          1/1     Running   0          3m[m
+[32m+[m[32mproductcatalogservice-557d474574-888kr   1/1     Running   0          3m[m
+[32m+[m[32mrecommendationservice-69c56b74d4-7z8r5   1/1     Running   0          3m1s[m
+[32m+[m[32mredis-cart-5f59546cdd-5jnqf              1/1     Running   0          2m58s[m
+[32m+[m[32mshippingservice-6ccc89f8fd-v686r         1/1     Running   0          2m58s[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m7. **Access the web frontend in a browser** using the frontend's `EXTERNAL_IP`.[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mkubectl get service frontend-external | awk '{print $4}'[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m*Example output - do not copy*[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mEXTERNAL-IP[m
+[32m+[m[32m<your-ip>[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m**Note**- you may see `<pending>` while GCP provisions the load balancer. If this happens, wait a few minutes and re-run the command.[m
+[32m+[m
+[32m+[m[32m8. [Optional] **Clean up**:[m
+[32m+[m
+[32m+[m[32m```[m
+[32m+[m[32mgcloud container clusters delete onlineboutique \[m
+[32m+[m[32m    --project=${PROJECT_ID} --zone=${ZONE}[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32m## Other Deployment Options[m
+[32m+[m
+[32m+[m[32m- **Workload Identity**: [See these instructions.](docs/workload-identity.md)[m
+[32m+[m[32m- **Istio**: [See these instructions.](docs/service-mesh.md)[m
+[32m+[m[32m- **Anthos Service Mesh**: ASM requires Workload Identity to be enabled in your GKE cluster. [See the workload identity instructions](docs/workload-identity.md) to configure and deploy the app. Then, use the [service mesh guide](/docs/service-mesh.md).[m
+[32m+[m[32m- **non-GKE clusters (Minikube, Kind)**: see the [Development Guide](/docs/development-guide.md)[m
+[32m+[m[32m- **Memorystore**: [See these instructions](/docs/memorystore.md) to replace the in-cluster `redis` database with hosted Google Cloud Memorystore (redis).[m
+[32m+[m
+[32m+[m
+[32m+[m[32m## Architecture[m
+[32m+[m
+[32m+[m[32m**Online Boutique** is composed of 11 microservices written in different[m
+[32m+[m[32mlanguages that talk to each other over gRPC. See the [Development Principles](/docs/development-principles.md) doc for more information.[m
+[32m+[m
+[32m+[m[32m[![Architecture of[m
+[32m+[m[32mmicroservices](./docs/img/architecture-diagram.png)](./docs/img/architecture-diagram.png)[m
+[32m+[m
+[32m+[m[32mFind **Protocol Buffers Descriptions** at the [`./pb` directory](./pb).[m
+[32m+[m
+[32m+[m[32m| Service                                              | Language      | Description                                                                                                                       |[m
+[32m+[m[32m| ---------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------- |[m
+[32m+[m[32m| [frontend](./src/frontend)                           | Go            | Exposes an HTTP server to serve the website. Does not require signup/login and generates session IDs for all users automatically. |[m
+[32m+[m[32m| [cartservice](./src/cartservice)                     | C#            | Stores the items in the user's shopping cart in Redis and retrieves it.                                                           |[m
+[32m+[m[32m| [productcatalogservice](./src/productcatalogservice) | Go            | Provides the list of products from a JSON file and ability to search products and get individual products.                        |[m
+[32m+[m[32m| [currencyservice](./src/currencyservice)             | Node.js       | Converts one money amount to another currency. Uses real values fetched from European Central Bank. It's the highest QPS service. |[m
+[32m+[m[32m| [paymentservice](./src/paymentservice)               | Node.js       | Charges the given credit card info (mock) with the given amount and returns a transaction ID.                                     |[m
+[32m+[m[32m| [shippingservice](./src/shippingservice)             | Go            | Gives shipping cost estimates based on the shopping cart. Ships items to the given address (mock)                                 |[m
+[32m+[m[32m| [emailservice](./src/emailservice)                   | Python        | Sends users an order confirmation email (mock).                                                                                   |[m
+[32m+[m[32m| [checkoutservice](./src/checkoutservice)             | Go            | Retrieves user cart, prepares order and orchestrates the payment, shipping and the email notification.                            |[m
+[32m+[m[32m| [recommendationservice](./src/recommendationservice) | Python        | Recommends other products based on what's given in the cart.                                                                      |[m
+[32m+[m[32m| [adservice](./src/adservice)                         | Java          | Provides text ads based on given context words.                                                                                   |[m
+[32m+[m[32m| [loadgenerator](./src/loadgenerator)                 | Python/Locust | Continuously sends requests imitating realistic user shopping flows to the frontend.                                              |[m
+[32m+[m
+[32m+[m[32m## Features[m
+[32m+[m
+[32m+[m[32m- **[Kubernetes](https://kubernetes.io)/[GKE](https://cloud.google.com/kubernetes-engine/):**[m
+[32m+[m[32m  The app is designed to run on Kubernetes (both locally on "Docker for[m
+[32m+[m[32m  Desktop", as well as on the cloud with GKE).[m
+[32m+[m[32m- **[gRPC](https://grpc.io):** Microservices use a high volume of gRPC calls to[m
+[32m+[m[32m  communicate to each other.[m
+[32m+[m[32m- **[Istio](https://istio.io):** Application works on Istio service mesh.[m
+[32m+[m[32m- **[OpenCensus](https://opencensus.io/) Tracing:** Most services are[m
+[32m+[m[32m  instrumented using OpenCensus trace interceptors for gRPC/HTTP.[m
+[32m+[m[32m- **[Cloud Operations (Stackdriver)](https://cloud.google.com/products/operations):** Many services[m
+[32m+[m[32m  are instrumented with **Profiling**, **Tracing** and **Debugging**. In[m
+[32m+[m[32m  addition to these, using Istio enables features like Request/Response[m
+[32m+[m[32m  **Metrics** and **Context Graph** out of the box. When it is running out of[m
+[32m+[m[32m  Google Cloud, this code path remains inactive.[m
+[32m+[m[32m- **[Skaffold](https://skaffold.dev):** Application[m
+[32m+[m[32m  is deployed to Kubernetes with a single command using Skaffold.[m
+[32m+[m[32m- **Synthetic Load Generation:** The application demo comes with a background[m
+[32m+[m[32m  job that creates realistic usage patterns on the website using[m
+[32m+[m[32m  [Locust](https://locust.io/) load generator.[m
+[32m+[m
+[32m+[m[32m## Local Development[m
+[32m+[m
+[32m+[m[32mIf you would like to contribute features or fixes to this app, see the [Development Guide](/docs/development-guide.md) on how to build this demo locally.[m
+[32m+[m
+[32m+[m[32m## Demos featuring Online Boutique[m
+[32m+[m
+[32m+[m[32m- [Take the first step toward SRE with Cloud Operations Sandbox](https://cloud.google.com/blog/products/operations/on-the-road-to-sre-with-cloud-operations-sandbox)[m
+[32m+[m[32m- [Deploying the Online Boutique sample application on Anthos Service Mesh](https://cloud.google.com/service-mesh/docs/onlineboutique-install-kpt)[m
+[32m+[m[32m- [Anthos Service Mesh Workshop: Lab Guide](https://codelabs.developers.google.com/codelabs/anthos-service-mesh-workshop)[m
+[32m+[m[32m- [KubeCon EU 2019 - Reinventing Networking: A Deep Dive into Istio's Multicluster Gateways - Steve Dake, Independent](https://youtu.be/-t2BfT59zJA?t=982)[m
+[32m+[m[32m- Google Cloud Next'18 SF[m
+[32m+[m[32m  - [Day 1 Keynote](https://youtu.be/vJ9OaAqfxo4?t=2416) showing GKE On-Prem[m
+[32m+[m[32m  - [Day 3 Keynote](https://youtu.be/JQPOPV_VH5w?t=815) showing Stackdriver[m
+[32m+[m[32m    APM (Tracing, Code Search, Profiler, Google Cloud Build)[m
+[32m+[m[32m  - [Introduction to Service Management with Istio](https://www.youtube.com/watch?v=wCJrdKdD6UM&feature=youtu.be&t=586)[m
+[32m+[m[32m- [Google Cloud Next'18 London – Keynote](https://youtu.be/nIq2pkNcfEI?t=3071)[m
+[32m+[m[32m  showing Stackdriver Incident Response Management[m
+[32m+[m
+[32m+[m[32m---[m
+[32m+[m
+[32m+[m[32mThis is not an official Google project.# -microservices[m
